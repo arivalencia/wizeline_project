@@ -11,6 +11,12 @@ import com.ari.coins.R
 import com.ari.coins.databinding.ItemCoinBinding
 import com.ari.coins.ui.uiModels.AvailableBook
 
+/**
+ * @author Ari Valencia
+ * @file CoinsAdapter
+ * @description ListAdapter for represent coins list
+ */
+
 class CoinsAdapter(
     val getCoinUrlImage: (book: String) -> String,
     val onClickCoin: (AvailableBook) -> Unit
@@ -39,7 +45,7 @@ class CoinsAdapter(
     }
 }
 
-private object AvailableBookCallBack: DiffUtil.ItemCallback<AvailableBook>() {
+private object AvailableBookCallBack : DiffUtil.ItemCallback<AvailableBook>() {
     override fun areItemsTheSame(oldItem: AvailableBook, newItem: AvailableBook): Boolean {
         return oldItem.book == newItem.book
     }

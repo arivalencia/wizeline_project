@@ -1,6 +1,7 @@
 package com.ari.coins.domain
 
-import com.ari.coins.data.models.*
+import com.ari.coins.data.models.ResultData
+import com.ari.coins.data.models.TickerData
 import com.ari.coins.data.repository.CoinsRepository
 import com.ari.coins.domain.domainModels.ResultDomain
 import io.mockk.MockKAnnotations
@@ -15,7 +16,7 @@ class GetTickerUseCaseTest {
 
     private lateinit var getTickerUseCase: GetTickerUseCase
     private val book = "eth_mxn"
-    private val ticker = TickerData("", "", "", "", "", "", "", "", "", "")
+    private val ticker = TickerData("", "", "", "", "", "", "", "", "")
 
     @RelaxedMockK
     private lateinit var coinsRepository: CoinsRepository
@@ -44,7 +45,7 @@ class GetTickerUseCaseTest {
         coEvery { coinsRepository.getTicker(any()) } returns ResultData.Success(ticker)
 
         // When
-        val result = getTickerUseCase(book)
+        getTickerUseCase(book)
 
         // Then
         coVerify(exactly = 1) { coinsRepository.deleteTickerFromDB(any()) }
@@ -58,7 +59,7 @@ class GetTickerUseCaseTest {
         coEvery { coinsRepository.getTickerFromDB(any()) } returns ticker
 
         // When
-        val result = getTickerUseCase(book)
+        getTickerUseCase(book)
 
         // Then
         coVerify(exactly = 1) { coinsRepository.getTickerFromDB(any()) }
@@ -86,7 +87,7 @@ class GetTickerUseCaseTest {
             coEvery { coinsRepository.getTickerFromDB(any()) } returns ticker
 
             // When
-            val result = getTickerUseCase( book)
+            val result = getTickerUseCase(book)
 
             // Then
             coVerify(exactly = 1) { coinsRepository.getTickerFromDB(any()) }

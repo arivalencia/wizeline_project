@@ -1,10 +1,17 @@
 package com.ari.core.client
 
 import com.ari.core.BuildConfig
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+/**
+ * @author Ari Valencia
+ * @file CryptoRetrofit
+ * @description Expose custom Retrofit instance for call requests
+ */
 
 object CryptoRetrofit {
 
@@ -27,6 +34,6 @@ object CryptoRetrofit {
         .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // For RxJava implementation
         .build()
-
 }

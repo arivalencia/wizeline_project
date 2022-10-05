@@ -1,12 +1,17 @@
 package com.ari.core.client
 
 import android.os.Build
-import com.ari.core.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 
-class HeadersInterceptor: Interceptor {
+/**
+ * @author Ari Valencia
+ * @file HeadersInterceptor
+ * @description Interceptor for add Usser-Agent to all request
+ */
+
+class HeadersInterceptor : Interceptor {
 
     companion object {
         private val USER_AGENT: String =

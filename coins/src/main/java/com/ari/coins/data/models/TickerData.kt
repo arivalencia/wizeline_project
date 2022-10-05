@@ -9,6 +9,5 @@ data class TickerData(
     val high: String,
     val last: String,
     val low: String,
-    val volume: String,
-    val vwap: String
+    val volume: String
 )

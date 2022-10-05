@@ -12,10 +12,17 @@ import com.ari.coins.framework.data.local.entities.toData
 import com.ari.coins.framework.data.local.entities.toEntity
 import javax.inject.Inject
 
+/**
+ * @author Ari Valencia
+ * @file CoinsLocalDataSourceImpl
+ * @description Implementation for CoinsLocalDataSource for
+ *                save, update and read local data using Room
+ */
+
 class CoinsLocalDataSourceImpl @Inject constructor(
     private val availableBookDao: AvailableBookDao,
     private val orderBookDao: OrderBookDao,
-    private val tickerDao: TickerDao,
+    private val tickerDao: TickerDao
 ) : CoinsLocalDataSource {
 
     override suspend fun getAvailableBooksFromDB(): List<AvailableBookData> =
@@ -26,9 +33,6 @@ class CoinsLocalDataSourceImpl @Inject constructor(
 
     override suspend fun getOrderBookFromDB(book: String): OrderBookData? =
         orderBookDao.getOrderBook(book)?.toData()
-
-    override suspend fun deleteAvailableBookFromDB(book: String) =
-        availableBookDao.deleteAvailableBook(book)
 
     override suspend fun deleteTickerFromDB(book: String) = tickerDao.deleteTicker(book)
 
@@ -44,5 +48,4 @@ class CoinsLocalDataSourceImpl @Inject constructor(
         orderBookDao.insertOrderBook(orderBook.toEntity(book))
 
     override suspend fun clearAvailableBookTableFormDB() = availableBookDao.clearTable()
-
 }

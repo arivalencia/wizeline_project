@@ -15,6 +15,12 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * @author Ari Valencia
+ * @file RoomModule
+ * @description Provide DAO and DB with Room
+ */
+
 @Module
 @InstallIn(SingletonComponent::class)
 object RoomModule {
@@ -53,7 +59,4 @@ object RoomModule {
     @Singleton
     @Provides
     fun provideTickerDao(tickerDB: TickerDB): TickerDao = tickerDB.getTickerDao()
-
-
-
 }

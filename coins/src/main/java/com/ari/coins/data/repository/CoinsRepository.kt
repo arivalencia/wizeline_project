@@ -8,6 +8,15 @@ import com.ari.coins.data.models.TickerData
 import com.ari.coins.data.network.CoinsRemoteDataSource
 import javax.inject.Inject
 
+/**
+ * @author Ari Valencia
+ * @file CoinsRepository
+ * @description Repository with CRUD for
+ *                  - Available books
+ *                  - Order books
+ *                  - Tickers
+ */
+
 class CoinsRepository @Inject constructor(
     private val coinsRemoteDataSource: CoinsRemoteDataSource,
     private val coinsLocalDataSource: CoinsLocalDataSource
@@ -31,9 +40,6 @@ class CoinsRepository @Inject constructor(
     suspend fun getOrderBookFromDB(book: String): OrderBookData? =
         coinsLocalDataSource.getOrderBookFromDB(book)
 
-    suspend fun deleteAvailableBookFromDB(book: String) =
-        coinsLocalDataSource.deleteAvailableBookFromDB(book)
-
     suspend fun deleteTickerFromDB(book: String) = coinsLocalDataSource.deleteTickerFromDB(book)
 
     suspend fun deleteOrderBookFromDB(book: String) =
@@ -49,5 +55,4 @@ class CoinsRepository @Inject constructor(
 
     suspend fun clearAvailableBookTableFormDB() =
         coinsLocalDataSource.clearAvailableBookTableFormDB()
-
 }

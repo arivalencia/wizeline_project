@@ -8,6 +8,12 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Inject
 
+/**
+ * @author Ari Valencia
+ * @file ApisModule
+ * @description Provide api services with custom retrofit
+ */
+
 @Module
 @InstallIn(SingletonComponent::class)
 class ApisModule {
@@ -15,5 +21,4 @@ class ApisModule {
     @Inject
     @Provides
     fun provideCoinsApi(retrofit: Retrofit): CoinsApi = retrofit.create(CoinsApi::class.java)
-
 }

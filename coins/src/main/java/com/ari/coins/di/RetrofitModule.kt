@@ -8,6 +8,12 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
+/**
+ * @author Ari Valencia
+ * @file RetrofitModule
+ * @description Provide only custom retrofit
+ */
+
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
@@ -15,5 +21,4 @@ object RetrofitModule {
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit = CryptoRetrofit.retrofit
-
 }

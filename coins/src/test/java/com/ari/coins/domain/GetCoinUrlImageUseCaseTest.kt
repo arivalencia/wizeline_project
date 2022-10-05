@@ -13,9 +13,9 @@ internal class GetCoinUrlImageUseCaseTest {
     }
 
     @Test
-    fun `when we get url for coin then return the correct url`(){
+    fun `when we get url for coin then return the correct url`() {
         // Given
-        val book: String = "eth_mxn"
+        val book = "eth_mxn"
 
         // When
         val result = getCoinUrlImageUseCase(book)
@@ -23,5 +23,4 @@ internal class GetCoinUrlImageUseCaseTest {
         // Then
         assert(result == "https://firebasestorage.googleapis.com/v0/b/crypto-d6420.appspot.com/o/cryptocurrency_icon%2Fic_crypto_eth.png?alt=media")
     }
-
 }

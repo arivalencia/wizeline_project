@@ -6,6 +6,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.ari.coins.framework.data.local.entities.AvailableBookEntity
 
+/**
+ * @author Ari Valencia
+ * @file AvailableBookDao
+ * @description Dao for available books with CRUD operations
+ */
+
 @Dao
 interface AvailableBookDao {
 
@@ -20,9 +26,6 @@ interface AvailableBookDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAvailableBooks(list: List<AvailableBookEntity>)
-
-    @Query("DELETE FROM available_book_table WHERE book = :book")
-    suspend fun deleteAvailableBook(book: String)
 
     @Query("DELETE FROM available_book_table")
     suspend fun clearTable()

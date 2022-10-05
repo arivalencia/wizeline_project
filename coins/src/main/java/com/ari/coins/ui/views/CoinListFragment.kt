@@ -1,7 +1,6 @@
 package com.ari.coins.ui.views
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +11,17 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.ari.coins.R
 import com.ari.coins.databinding.FragmentCoinListBinding
 import com.ari.coins.ui.uiModels.AvailableBook
-import com.ari.coins.ui.uiModels.Result
 import com.ari.coins.ui.viewModels.CoinsViewModel
 import com.ari.coins.ui.views.adapters.CoinsAdapter
+import com.ari.coins.ui.views.dialogs.GenericBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
+import com.ari.coins.ui.uiModels.DialogData as DialogData1
+
+/**
+ * @author Ari Valencia
+ * @file CoinListFragment
+ * @description Fragment to display list of coins
+ */
 
 @AndroidEntryPoint
 class CoinListFragment : Fragment() {
@@ -49,21 +55,31 @@ class CoinListFragment : Fragment() {
     }
 
     private fun addObservers() {
-        coinsViewModel.availableBooks.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Error -> {
-                    Log.e("AVD", "${result.code} - ${result.message}")
-                }
-                is Result.Success -> {
-                    coinsAdapter.submitList(result.data)
-                }
-            }
+        coinsViewModel.successAvailableBooks.observe(viewLifecycleOwner) { availableBooks ->
+            coinsAdapter.submitList(availableBooks)
         }
+
+        coinsViewModel.errorAvailableBooks.observe(viewLifecycleOwner) { error ->
+            error?.let { showErrorDialog(it.message) }
+        }
+    }
+
+    private fun showErrorDialog(message: String) {
+        val dialogData = DialogData1(
+            drawableRes = R.drawable.ic_baseline_error_24,
+            title = getString(R.string.oops),
+            description = message
+        )
+        val errorDialog = GenericBottomSheet(dialogData, { // On back button clicked
+            activity?.onBackPressed()
+        }) { // On retry button clicked
+            coinsViewModel.getAvailableBooks()
+        }
+        errorDialog.show(childFragmentManager, errorDialog.tag + "CoinsListFragment")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }
